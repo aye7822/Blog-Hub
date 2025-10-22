@@ -152,6 +152,15 @@ export default function BlogPostClient({ slug }: BlogPostClientProps) {
                     fill
                     className="object-cover"
                     priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                    quality={90}
+                    onError={(e) => {
+                      // Hide image container if image fails to load
+                      const container = e.currentTarget.closest('div')
+                      if (container) {
+                        container.style.display = 'none'
+                      }
+                    }}
                   />
                 </div>
               </div>
