@@ -67,6 +67,9 @@ export function RichTextEditor({ content = '', onChange, placeholder = 'Start wr
           keepMarks: true,
           keepAttributes: false,
         },
+        // Disable built-in extensions that we're configuring separately
+        link: false,
+        underline: false,
       }),
       Placeholder.configure({
         placeholder,

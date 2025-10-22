@@ -202,7 +202,7 @@ export default function BlogPageClient() {
             {posts.map((post) => (
               <Card key={post.id} className="group hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-200/50 hover:border-blue-300/50 bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden">
                 {/* Featured Image */}
-                {post.imageUrl && (
+                {post.imageUrl && post.imageUrl.startsWith('http') && (
                   <div className="relative w-full h-48 overflow-hidden">
                     <Image
                       src={post.imageUrl}
@@ -212,6 +212,7 @@ export default function BlogPageClient() {
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       quality={85}
                       onError={(e) => {
+                        console.error('Image load error:', post.imageUrl)
                         // Hide image container if image fails to load
                         const container = e.currentTarget.closest('div')
                         if (container) {

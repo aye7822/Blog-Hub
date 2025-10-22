@@ -143,7 +143,7 @@ export default function BlogPostClient({ slug }: BlogPostClientProps) {
             </div>
 
             {/* Featured Image */}
-            {post.imageUrl && (
+            {post.imageUrl && post.imageUrl.startsWith('http') && (
               <div className="mb-8">
                 <div className="relative w-full h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden">
                   <Image
@@ -155,6 +155,7 @@ export default function BlogPostClient({ slug }: BlogPostClientProps) {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
                     quality={90}
                     onError={(e) => {
+                      console.error('Image load error:', post.imageUrl)
                       // Hide image container if image fails to load
                       const container = e.currentTarget.closest('div')
                       if (container) {

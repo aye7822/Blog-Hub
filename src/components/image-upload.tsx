@@ -49,14 +49,16 @@ export function ImageUpload({
       })
 
       if (!response.ok) {
-        throw new Error('Upload failed')
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error || `Upload failed with status ${response.status}`)
       }
 
       const data = await response.json()
       onImageUpload(data.url)
     } catch (error) {
       console.error('Upload error:', error)
-      setUploadError('Failed to upload image. Please try again.')
+      const errorMessage = error instanceof Error ? error.message : 'Failed to upload image. Please try again.'
+      setUploadError(errorMessage)
     } finally {
       setIsUploading(false)
     }
